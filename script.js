@@ -10,7 +10,7 @@ function generate() {
 
   const prefix = display.split("://")[0] + "://";
   const args = display.split("://").slice(1).join('').split('.');
-  const generatedLinkParts = [`[${prefix}](${actual}})`];
+  const generatedLinkParts = [`[${prefix}](${actual})`];
   let count = 0;
   for (const arg of args) {
     if (count === 0) {
