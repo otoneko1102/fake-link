@@ -22,6 +22,8 @@ function generate() {
   }
     
   const GeneratedLink = generatedLinkParts.join('');
+  
+  generatedLink.innerHTML = '';
   generatedLink.innerHTML = GeneratedLink;
     
   const tempInput = document.createElement('input');
