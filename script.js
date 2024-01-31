@@ -1,22 +1,35 @@
 function generate() {
-    const display = document.getElementById("display").value;
-    const actual = document.getElementById("actual").value;
-    const generatedLink = document.getElementById("generatedLink");
-    if (!display || !actual || !display.match(/^(https?):\/\//) || !actual.match(/^(https?):\/\//)) {
-        alert("URL?");
-        return;
+  const display = document.getElementById("display").value;
+  const actual = document.getElementById("actual").value;
+  const generatedLink = document.getElementById("generatedLink");
+    
+  if (!display || !actual || !display.match(/^(https?):\/\//) || !actual.match(/^(https?):\/\//)) {
+    alert("Missing parameters.");
+    return;
+  }
+
+  const prefix = display.split("://")[0] + "://";
+  const args = display.split("://").slice(1).join('').split('.');
+  const generatedLinkParts = [`[${prefix}](${actual}})`];
+  let count = 0;
+  for (const arg of args) {
+    if (count === 0) {
+      generatedLinkParts.push(`[${arg}](${actual})`);
+    } else {
+      generatedLinkParts.push(`[.${arg}](${actual})`);
     }
-    const prefix = display.split("://")[0] + "://";
-    const args = display.split("://").slice(1).join('').split('.');
-    const $ = [`[${prefix}](${actual}})`];
-    let count = 0;
-    for (const arg of args) {
-      if (count == 0) {
-        $.push(`[${arg}](${actual})`);
-      } else {
-        $.push(`[.${arg}](${actual})`);
-      }
-      count++
-    }
-    generatedLink.innerHTML = $.join('');
-};
+    count++;
+  }
+    
+  const GeneratedLink = generatedLinkParts.join('');
+  generatedLink.innerHTML = GeneratedLink;
+    
+  const tempInput = document.createElement('input');
+  tempInput.value = GeneratedLink;
+  document.body.appendChild(tempInput);
+  tempInput.select();
+  document.execCommand('copy');
+  document.body.removeChild(tempInput);
+
+  alert('Generated link copied to clipboard!');
+}
