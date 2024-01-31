@@ -3,7 +3,7 @@ function generate() {
   const actual = document.getElementById("actual").value;
   const generatedLink = document.getElementById("generatedLink");
     
-  if (!display || !actual || !display.match(/^(https?):\/\//) || !actual.match(/^(https?):\/\//)) {
+  if (!display || !actual || !display.match(/^(https?):\/\/\S/) || !actual.match(/^(https?):\/\/\S/)) {
     alert("Missing parameters.");
     return;
   }
